@@ -3,19 +3,20 @@ var inquirer = require("inquirer");
 
 var questions = require('./basic.json')
 
-// constructor function used to create flashcard objects
+// constructor function used to create flashcard objects// basic card constructor
 function Flashcard(front, back) {
   this.front = front;
   this.back = back;
 }
 
-// creates the printInfo method and applies it to all programmer objects
+// adding printInfo to flashcard prototype
 Flashcard.prototype.printInfo = function() {
   console.log("Question: " + this.front + "\nAnswer: " + this.back );
 };
 
 // variable we will use to count how many times our questions have been asked
 var count = 0;
+var score = 0;
 
 var questions = require('./basic.json');
 
@@ -26,10 +27,19 @@ var askQuestion = function() {
     // stored within the variable answers inside of the .then statement
     inquirer.prompt([
       {
-        name: "name",
+        name: "input",
         message: questions[count].front
       }
     ]).then(function(answers) {
+      if (answers.input === questions[count].back) {
+        console.log("You are correct");
+        score++;
+
+      } else {
+        console.log("you are wrong");
+      }
+
+
 
       // add one to count to increment our recursive loop by one
       count++;
